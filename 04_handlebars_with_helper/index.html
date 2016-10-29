@@ -1,0 +1,46 @@
+<html>
+    <head>
+        <title>Handlebarsjs array loop tutorial</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="../source/handlebars-v4.0.5.js"></script>
+        <script src="../jsonData/jsonDataSrc.js"></script>
+    </head>
+    <body>
+        <div id='handlebars-with-helper'>
+        </div>
+    <script id='handlebars-js-template' type='text/x-handlebars-template'>
+        {{#with Cake}}
+            <ul>
+
+            {{!-- Below code block demonstrate how to iterate over array by providing user defined varibale name to the key & value. --}}
+
+                {{#each this as |cakeTypes id|}}
+                    {{id}}:{{cakeTypes.type}}<br/>
+                {{/each}}
+            </ul>
+        {{/with}}
+    </script>
+    <script type='text/javascript'>
+
+        var handleBarsTemplate = '';
+        var compiledFunction = '';
+        var handleBarsOutput = '';
+        
+        Handlebars.registerHelper('with', function(context, option){
+
+            return option.fn(context);
+        });
+
+
+        handleBarsTemplate = document.getElementById('handlebars-js-template').innerHTML;
+
+        compiledFunction = Handlebars.compile(handleBarsTemplate);
+
+        handleBarsOutput = compiledFunction({"Cake":window.data});
+
+        document.getElementById('handlebars-with-helper').innerHTML = handleBarsOutput;
+
+    </script>
+    </body>
+</html>

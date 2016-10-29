@@ -1,0 +1,58 @@
+<html>
+    <head>
+        <title>Handlebarsjs partial tutorial</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="../source/handlebars-v4.0.5.js"></script>
+        <script src="../jsonData/jsonDataSrc.js"></script>
+    </head>
+    <body>
+        <div id='handlebars-partials'>
+        </div>
+    <script id='handlebars-js-template' type='text/x-handlebars-template'>
+        {{#each Cake as |cakeInfoObj index|}}
+        {{name}}<br/>
+        {{> cakeBattersType_A_Partial}}
+        {{> cakeBattersType_B_Partial cakeInfoObj.topping}}
+        {{/each}}
+    </script>
+    
+    <script id='handlebars-js-partials-type-a' type='text/x-handlebars-template'>
+        {{#each batters.batter as |cakeTypes id|}}
+        {{cakeTypes.type}},
+        {{/each}}
+        <br/>
+    </script>
+
+    <script id='handlebars-js-partials-type-b' type='text/x-handlebars-template'>
+        {{#each this}}
+        {{this.type}},
+        {{/each}}
+        <br/><br/>
+    </script>    
+    
+    <script type='text/javascript'>
+        
+        var TargetHTMLDiv;
+        var HandlebarsTemplate;
+        var HandlebarsCompiledFunc;
+        var HandlebarsPartialHTMLType_A;
+        var HandlebarsPartialHTMLType_B;
+        
+        TargetHTMLDiv = document.getElementById('handlebars-partials');
+        
+        HandlebarsTemplate = document.getElementById('handlebars-js-template').innerHTML;
+        HandlebarsPartialHTMLType_A = document.getElementById('handlebars-js-partials-type-a').innerHTML;
+        HandlebarsPartialHTMLType_B = document.getElementById('handlebars-js-partials-type-b').innerHTML;
+        
+        Handlebars.registerPartial('cakeBattersType_A_Partial', HandlebarsPartialHTMLType_A);
+        Handlebars.registerPartial('cakeBattersType_B_Partial', HandlebarsPartialHTMLType_B);
+        
+        HandlebarsCompiledFunc = Handlebars.compile(HandlebarsTemplate);
+
+        TargetHTMLDiv.innerHTML = HandlebarsCompiledFunc({"Cake":window.data});
+        
+        
+    </script>
+    </body>
+</html>

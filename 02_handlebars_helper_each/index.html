@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Handlebarsjs array loop tutorial using each helper</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="../source/handlebars-v4.0.5.js"></script>
+    </head>
+    <body>
+        <div id='handlebars-array-loop'>
+        </div>
+    <script id='handlebars-js-template' type='text/x-handlebars-template'>
+        <div>
+            <ul>
+            /*
+             * Below code block demonstrate how to iterate over array.
+             */
+            {{#each technologies}}
+                <li>
+                 Index: {{@key}}, Value: {{name}}
+                </li>
+            {{/each}}
+            </ul>
+            <p>{{{description}}}</p>
+        </div>
+        <div>
+            <ul>
+            /*
+             * Below code block demonstrate how to iterate over array using
+             * `this` pseudo code.
+             */            
+            {{#each technologies}}
+                <li>
+                 Index: {{@key}}, Value: {{this.name}}
+                </li>
+            {{/each}}
+            </ul>
+            <p>{{{description}}}</p>
+        </div>
+        <div>
+            <ul>
+            /*
+             * Below code block demonstrate how to iterate over array by providing user defined varibale name to the key & value.
+             */            
+            {{#each technologies as |techValue techKey|}}
+                <li>
+                 Index: {{techKey}}, Value: {{techValue.name}}
+                </li>
+            {{/each}}
+            </ul>
+            <p>{{{description}}}</p>
+        </div>
+    </script>
+    <script type='text/javascript'>
+        var handleBarsTemplate = '';
+        var compiledFunction = '';
+        var templateSource = {technologies:[{name:"Node"},{name:"HandleBarsJs"},{name:['expressjs', 'hapijs']}],
+                                description: "<i>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</i>"
+                            };
+        var handleBarsOutput = '';
+
+        handleBarsTemplate = document.getElementById('handlebars-js-template').innerHTML;
+
+        compiledFunction = Handlebars.compile(handleBarsTemplate);
+        
+        handleBarsOutput = compiledFunction(templateSource);
+
+        document.getElementById('handlebars-array-loop').innerHTML = handleBarsOutput;
+
+    </script>
+    </body>
+</html>

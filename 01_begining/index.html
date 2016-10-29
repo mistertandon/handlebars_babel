@@ -1,0 +1,37 @@
+<html>
+    <head>
+        <title>Handlebarsjs Basic tutorial</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="../source/handlebars-v4.0.5.js"></script>
+    </head>
+    <body>
+        <div id='handlebars-says-hello-itself'>
+        </div>
+    <script type='text/javascript'>
+        /**
+         * template: Template will contained Handle-bars bases JS script, we
+         * need to compile using Handle-bars library.
+         */
+        var template = '';
+
+        /**
+         * compiledFunction: It'll contained resultant function from
+         * compilation process.
+         */
+        var compiledFunction = '';
+        var templateSource = {language:"Node",sibbling:"NPM"};
+        var handleBarsOutput = '';
+        
+        template = "HandleBars saying hello to {{language}} community members. In addition to {{language}},\n\
+        {{sibbling}} is great tool to manage {{language}} packages.";
+
+        compiledFunction = Handlebars.compile(template);
+        
+        handleBarsOutput = compiledFunction(templateSource);
+
+        document.getElementById('handlebars-says-hello-itself').innerHTML = handleBarsOutput;
+
+    </script>
+    </body>
+</html>

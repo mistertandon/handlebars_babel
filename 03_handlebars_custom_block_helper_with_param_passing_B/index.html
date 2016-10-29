@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Handlebarsjs array loop tutorial</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="../source/handlebars-v4.0.5.js"></script>
+    </head>
+    <body>
+        <div id='handlebars-with-helper-demo'>
+        </div>
+        <script id='handlebars-with-helper-template' type='text/x-handlebars-template'>
+            <div>
+            {{#isEqual 1 2}}
+                Both numbers are equal.
+            {{else}}
+                Both numbers are not equal.
+            {{/isEqual}}
+            </div>
+        </script>
+        <script type='text/javascript'>
+    /**
+     * context: context contain value of passed parameters.
+     * 
+     */
+    Handlebars.registerHelper('isEqual', function (firstNumber, secondNumber, options) {
+
+        var passedData = '';
+        var outputInfo = '';
+        
+        if(firstNumber == secondNumber){
+            
+            outputInfo = options.fn(this);
+        }else{
+            
+            outputInfo = options.inverse(this);
+        }
+
+        return outputInfo;
+    });
+
+    var handleBarsTemplate = '';
+    var compiledFunction = '';
+    var templateSource = {};
+    var handleBarsOutput = '';
+
+    handleBarsTemplate = document.getElementById('handlebars-with-helper-template').innerHTML;
+
+    compiledFunction = Handlebars.compile(handleBarsTemplate);
+
+    handleBarsOutput = compiledFunction(templateSource);
+
+    document.getElementById('handlebars-with-helper-demo').innerHTML = handleBarsOutput;
+
+        </script>
+    </body>
+</html>

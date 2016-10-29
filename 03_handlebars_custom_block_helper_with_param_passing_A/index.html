@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Handlebarsjs array loop tutorial</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="../source/handlebars-v4.0.5.js"></script>
+    </head>
+    <body>
+        <div id='handlebars-make-html-radio-buttons'>
+        </div>
+        <script id='handlebars-make-html-radio-buttons-template' type='text/x-handlebars-template'>
+            <div>
+            {{#makeRadio "size"}}
+            Small
+            Medium
+            Large
+            {{/makeRadio}}
+            </div>
+        </script>
+        <script type='text/javascript'>
+    /**
+     * context: context contain value of passed parameters.
+     * 
+     */
+    Handlebars.registerHelper('makeRadio', function (context, options) {
+
+        var passedData = '';
+        var radioButtonNameArr = '';
+        var radioButtonName = '';
+        var radioButtonLabel = '';
+        var outputInfo = '';
+
+        passedData = options.fn();
+        radioButtonNameArr = passedData.split('\n');
+
+        for (radioButtonName in radioButtonNameArr) {
+            
+            radioButtonLabel = '';
+            radioButtonLabel = radioButtonNameArr[radioButtonName].trim();
+            
+            if(radioButtonLabel){
+
+                outputInfo += '<input type="radio" name="'+context+'"\n\
+                                value="'+radioButtonLabel+'" />'+radioButtonLabel+'<br/>';                
+            }
+        }
+
+        return outputInfo;
+    });
+
+    var handleBarsTemplate = '';
+    var compiledFunction = '';
+    var templateSource = {};
+    var handleBarsOutput = '';
+
+    handleBarsTemplate = document.getElementById('handlebars-make-html-radio-buttons-template').innerHTML;
+
+    compiledFunction = Handlebars.compile(handleBarsTemplate);
+
+    handleBarsOutput = compiledFunction(templateSource);
+
+    document.getElementById('handlebars-make-html-radio-buttons').innerHTML = handleBarsOutput;
+
+        </script>
+    </body>
+</html>

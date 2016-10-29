@@ -1,0 +1,45 @@
+<html>
+    <head>
+        <title>Handlebarsjs custom helper tutorial with options</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="../source/handlebars-v4.0.5.js"></script>
+        <style>
+            .redColor{
+                color: red;
+            }
+        </style>
+    </head>
+    <body>
+
+        <div id='handlebarsjs-custom-helper-with-options'></div>
+
+        <script id='handlebars-js-template' type='text/x-handlebars-template'>
+
+            {{addCssClass "I am in RED color" cssClassName="redColor"}}
+        </script>
+        <script type='text/javascript'>
+
+            Handlebars.registerHelper("addCssClass", function (text, options) {
+
+                var message = text;
+                var className = options.hash.cssClassName;
+                var handleBarsResponse = '';
+
+                message = Handlebars.Utils.escapeExpression(message);
+                className = Handlebars.Utils.escapeExpression(className);
+
+                modifiedMessage = "<span class='" + className + "'> How to use `data` key of `options` object: " + options.data.lang + "</span>";
+                modifiedMessage += "<br/><span class='" + className + "'>" + message + "</span>";
+
+                return new Handlebars.SafeString(modifiedMessage);
+            });
+
+            handleBarsTemplate = document.getElementById('handlebars-js-template').innerHTML;
+
+            compiledFunction = Handlebars.compile(handleBarsTemplate);
+            handleBarsResponse = compiledFunction({}, {data: {lang: 'en'}});
+            document.getElementById('handlebarsjs-custom-helper-with-options').innerHTML = handleBarsResponse;
+        </script>
+    </body>
+</html>

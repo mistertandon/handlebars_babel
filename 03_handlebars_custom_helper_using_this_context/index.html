@@ -1,0 +1,43 @@
+<html>
+    <head>
+        <title>Handlebarsjs array loop tutorial</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="../source/handlebars-v4.0.5.js"></script>
+    </head>
+    <body>
+        <div id='handlebars-array-loop-this-context'>
+        </div>
+    <script id='handlebars-js-template' type='text/x-handlebars-template'>
+        <div>
+            <ul>
+            {{#each technologies}}
+                <li>
+                {{getAuthor}}
+                </li>
+            {{/each}}
+            </ul>
+        </div>
+    </script>
+    <script type='text/javascript'>
+        var handleBarsTemplate = '';
+        var compiledFunction = '';
+        var templateSource = {technologies:[{name:"Node", author:"Ryan Dahl"},
+                                            {name:"HandleBarsJs", author:"kpdecker "},
+                                            {name:['expressjs', 'hapijs'], author:["TJ Holowaychuk", "hueniverse"]}],};
+        var handleBarsOutput = '';
+        Handlebars.registerHelper('getAuthor', function(){
+
+            return this.name+' dveloped '+this.author;
+        });
+        handleBarsTemplate = document.getElementById('handlebars-js-template').innerHTML;
+
+        compiledFunction = Handlebars.compile(handleBarsTemplate);
+        
+        handleBarsOutput = compiledFunction(templateSource);
+
+        document.getElementById('handlebars-array-loop-this-context').innerHTML = handleBarsOutput;
+
+    </script>
+    </body>
+</html>
